@@ -1,3 +1,12 @@
+# Ionic My Movies
+This is a simple app made with [Ionic Framework](http://ionicframework.com/).
+
+Using The [Open Movie Database API](http://www.omdbapi.com/) with the example key "BanMePlz",
+just for some tests using HTTP requests with [Angular](https://angular.io/).
+
+Below is the default content of README.md when using Ionic CLI:
+-----
+
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
 ## How to use this template
@@ -23,4 +32,3 @@ $ ionic cordova run ios
 ```
 
 Substitute ios for android if not on a Mac.
-
