@@ -5,15 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Movies</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
-
     <ion-card *ngFor="let movie of movies">
       <ion-img width="290" height="440" [src]="movie.Poster"></ion-img>
       <ion-card-content>
@@ -25,5 +25,4 @@
         </p>
       </ion-card-content>
     </ion-card>
-
 </ion-content>
