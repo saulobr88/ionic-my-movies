@@ -7,7 +7,6 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AboutPage } from '../pages/about/about';
 import { MoviesPage } from '../pages/movies/movies';
-import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
 
 @Component({
   templateUrl: 'app.html'
