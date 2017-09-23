@@ -1,0 +1,52 @@
+<!--
+  Generated template for the MovieDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>MovieDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngIf="movie">
+    <ion-card-content>
+      <ion-card-title>
+        {{movie.Title}}
+        </ion-card-title>
+      <div text-justify margin-bottom>
+        <h2><b>Plot</b></h2>
+         {{movie.Plot}}<br>
+      </div>
+      <div margin-bottom>
+        <h2><b>IMDB Data</b></h2>
+        imdbID: {{movie.imdbID}} <br>
+        Rating: {{movie.imdbRating}}<br>
+        Votes: {{movie.imdbVotes}}<br>
+        Type: {{movie.Type}}
+      </div>
+      <div margin-bottom>
+        <h2>Poster</h2>
+        <ion-img width="290" height="440" [src]="movie.Poster"></ion-img> <br>
+      </div>
+      <div margin-bottom>
+        <h2>Technical Data</h2>
+        Year: {{movie.Year}}<br>
+        Rated: {{movie.Rated}}<br>
+        Released: {{movie.Released}}<br>
+        Runtime: {{movie.Runtime}}<br>
+        Genre: {{movie.Genre}}<br>
+        Director: {{movie.Director}}<br>
+        Writer: {{movie.Writer}}<br>
+        Actors: {{movie.Actors}}<br>
+        Language: {{movie.Language}}<br>
+        Country: {{movie.Country}}<br>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
