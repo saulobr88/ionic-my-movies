@@ -5,3 +5,5 @@ https://www.joshmorony.com/an-introduction-to-lists-in-ionic-2/
 https://www.joshmorony.com/passing-data-between-pages-in-ionic-2/
 
 https://ionicframework.com/docs/theming/css-utilities/
+
+https://codecraft.tv/courses/angular/http/jsonp-with-observables/

@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
+import { Content, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular/navigation/ionic-page';
+import { Subject, Subscription } from 'rxjs/Rx';
+
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
+
+import { Movie } from '../../interfaces/movie';
+import { MovieProvider } from '../../providers/movie/movie';
 import { MovieDetailPage } from '../movie-detail/movie-detail';
 
 /**
@@ -10,51 +18,102 @@ import { MovieDetailPage } from '../movie-detail/movie-detail';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+/**
+ * Add this in order to enable lazy loading
+ */
 @IonicPage()
 @Component({
-  selector: 'page-movies',
-  templateUrl: 'movies.html',
+  selector: "page-movies",
+  templateUrl: "movies.html"
 })
-export class MoviesPage {
+export class MoviesPage implements OnDestroy {
 
-  public movies = [];
+  movieSearch$: Subject<string> = new Subject<string>();
+  movieSelection = "popular";
+  endPages: boolean = false;
+
+  private lastSearch: string;
+
+  movies: Movie[] = [];
+
+  private page: number = 0;
+  private subscription: Subscription;
+
+  @ViewChild(Content) content: Content;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public http: Http
-  ) {} // end of constructor
+    private movieProvider: MovieProvider
+  ){ } // end of constructor
+
+  getSelection(selection: string) {
+    this.reset();
+    this.movieSearch$.next(selection);
+  }
+
+  private reset(){
+    this.page = 0;
+    this.movies = [];
+    this.endPages = false;
+    this.content.scrollToTop(200);
+  }
+
+  searchMovie(search: string) {
+    this.reset();
+    this.movieSearch$.next(search);
+  }
 
   ionViewDidLoad() {
-    this.http.get('http://www.omdbapi.com/?apikey=BanMePlz&s=batman')
-        .toPromise().then((response) => {
-          this.movies = response.json().Search; // o array de filmes
-        });
-  }
+    this.subscription = this.movieSearch$
+    .debounceTime(400)
+    .switchMap((search: string) => {
+      search = !!!search ? this.movieSelection : search;
 
-  goToMovieDetail(movie){
-    this.navCtrl.push(MovieDetailPage, {imdbID: movie.imdbID});
-  }
+      const searchOpt: boolean =
+      search === "now_playing" ||
+      search === "popular" ||
+      search === "top_rated" ||
+      search === "upcoming" ||
+      !!!search
+        ? true
+        : false;
 
-  /* For tests only */
-  pushTwoMovies(){
-
-    this.movies.push({
-      Title: "Batman Begins",
-      Year: "2005",
-      imdbID: "tt0372784",
-      Type: "movie",
-      Poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg"
+      this.lastSearch = search;
+      this.page++;
+      if (searchOpt) {
+        return this.movieProvider.getList(search, this.page.toString());
+      } else {
+        return this.movieProvider.searchMovie(search, this.page.toString());
+      }
+    })
+    .subscribe((movies: Movie[]) => {
+      this.movies = this.movies.concat(movies);
+      console.log(this.endPages);
+      if (movies.length === 0) {
+        this.endPages = true;
+      }
     });
 
-    this.movies.push({
-      Title: "Batman v Superman: Dawn of Justice",
-      Year: "2016",
-      imdbID: "tt2975590",
-      Type: "movie",
-      Poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-    });
-  } // end pushTwoMovies
+    setTimeout(() => this.movieSearch$.next(""), 1000);
+  }
+
+  goToDetails(id: string) {
+      this.navCtrl.push(MovieDetailPage, { id: id });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.movieSearch$.next(this.lastSearch);
+    //infiniteScroll.enable(!this.endPages);
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+  }
 
 }

@@ -1,7 +1,7 @@
 # Ionic My Movies
 This is a simple app made with [Ionic Framework](http://ionicframework.com/).
 
-Using The [Open Movie Database API](http://www.omdbapi.com/) with the example key "BanMePlz",
+Using The [The Movie DB API](https://www.themoviedb.org) with the example key "BanMePlz",
 just for some tests using HTTP requests with [Angular](https://angular.io/).
 
 Below is the default content of README.md when using Ionic CLI:

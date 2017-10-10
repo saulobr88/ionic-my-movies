@@ -1,36 +1,40 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Component, OnDestroy } from '@angular/core';
+import { NavParams } from 'ionic-angular';
+import { Subscription } from 'rxjs/Rx';
 
-/**
- * Generated class for the MovieDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MovieProvider } from './../../providers/movie/movie';
+import { Movie } from './../../interfaces/movie';
 
-@IonicPage()
 @Component({
   selector: 'page-movie-detail',
   templateUrl: 'movie-detail.html',
 })
-export class MovieDetailPage {
+export class MovieDetailPage implements OnDestroy {
 
-  public movie = null;
+  movie:Movie;
+  private movieSub: Subscription;
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public http: Http
+    private navParams: NavParams,
+    private movieProvider:MovieProvider
   ) {}
 
   ionViewDidLoad() {
-    //http://www.omdbapi.com/?apikey=BanMePlz&i=tt1569923
-    let url = "http://www.omdbapi.com/?apikey=BanMePlz&i="+this.navParams.get('imdbID');
-    this.http.get(url)
-        .toPromise().then((response) => {
-          this.movie = response.json();
-        });
+    const id = this.navParams.get('id');
+    this.movieSub = this.movieProvider.getMovieDetails(id)
+    .subscribe(movie => {this.movie = movie; console.log("Movie: ", this.movie);} );
   }
 
+  videoResults(movie){
+    if (movie.videos.results.length > 0){
+      return true;
+    }
+    return false;
+  }
+
+  public ngOnDestroy(): void {
+    if(this.movieSub){
+      this.movieSub.unsubscribe();
+    }
+}
 }
