@@ -1,3 +1,24 @@
 page-about {
 
+  .page-content{
+    background: color($colors, dark);
+  }
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-title{
+    font-size: 0.9em;
+    width: 100%;
+    color: #ecf0f1;
+    background: transparent;
+  }
+
+  .card{
+    background: color($colors, dark);
+    color: #ecf0f1;
+  }
+
 }
