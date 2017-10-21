@@ -9,7 +9,7 @@ If you would like to download the code and try it for yourself:
 *please, notive that you might have ionic installed already
 
 1. Clone the repo: https://github.com/saulobr88/ionic-my-movies.git
-2. cd ionic-tmdb
+2. cd ionic-my-movies
 3. Install packages: npm install
 4. Build project and launch: ionic serve
 5. Open your browser at: http://localhost:8100
