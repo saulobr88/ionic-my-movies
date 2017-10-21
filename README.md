@@ -1,34 +1,35 @@
 # Ionic My Movies
 This is a simple app made with [Ionic Framework](http://ionicframework.com/).
 
-Using The [The Movie DB API](https://www.themoviedb.org) with the example key "BanMePlz",
-just for some tests using HTTP requests with [Angular](https://angular.io/).
+Using [The Movie DB API] (https://www.themoviedb.org), It allows user to search for any movie.
 
-Below is the default content of README.md when using Ionic CLI:
------
+## Installation 
+If you would like to download the code and try it for yourself:
 
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+*please, notive that you might have ionic installed already
 
-## How to use this template
+1. Clone the repo: https://github.com/saulobr88/ionic-my-movies.git
+2. cd ionic-tmdb
+3. Install packages: npm install
+4. Build project and launch: ionic serve
+5. Open your browser at: http://localhost:8100
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+## Installation Android
+* ionic cordova run android
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+# Screenshot
+![Popular Tab](./screenshots/01-popularTab.png)
+![Search Result](./screenshots/02-searchResult.png)
+![Movie Detail](./screenshots/03-movieDetail.png)
+![Movie Detail](./screenshots/04-movieDetail.png)
+![Movie Detail](./screenshots/05-movieDetail.png)
+![Side Menu](./screenshots/06-sideMenu.png)
+![About Page](./screenshots/07-about.png)
+![View in Browser](./screenshots/08-browser.png)
+![Android](./screenshots/09-Android.png)
 
-### With the Ionic CLI:
+## Original Author
+[Vitor Lima](https://vitorsilvalima.github.io/)
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start mySideMenu sidemenu
-```
-
-Then, to run it, cd into `mySideMenu` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
+## License
+[MIT](https://github.com/saulobr88/ionic-my-movies/blob/master/License)
