@@ -1,7 +1,7 @@
 # Ionic My Movies
 This is a simple app made with [Ionic Framework](http://ionicframework.com/).
 
-Using [The Movie DB API] (https://www.themoviedb.org), It allows user to search for any movie.
+Using [The Movie DB API](https://www.themoviedb.org), It allows user to search for any movie.
 
 ## Installation 
 If you would like to download the code and try it for yourself:
